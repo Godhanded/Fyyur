@@ -21,7 +21,7 @@ from flask import (
     url_for
   )
 from flask_moment import Moment
-from flask_sqlalchemy import SQLAlchemy
+
 import logging
 from logging import (
     Formatter, 
@@ -37,8 +37,7 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 moment = Moment(app)
 app.config.from_object('config')
-db = SQLAlchemy(app)
-migrate=Migrate(app,db)
+
 
 # TODO: connect to a local postgresql database
 
@@ -50,7 +49,8 @@ migrate=Migrate(app,db)
 
 from models import *
 
-  
+db.init_app(app)
+migrate=Migrate(app,db)
   
 #----------------------------------------------------------------------------#
 # Filters.
